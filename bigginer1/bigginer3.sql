@@ -23,7 +23,7 @@ select
   n.sales_date as SAL_DATE,
   n.sales_no as NO,
   d.item_code as ITEM_CODE,
-  d.sales_qty as SALES_QTY,
+  d.sales_qty as SAL_QTY,
   d.delivered_qty as DEL_QTY,
   case
     when d.delivered_qty = 0 then '未出荷'
