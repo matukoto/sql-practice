@@ -16,4 +16,5 @@ from
   prefecture p
   inner join hospitalization h on p.pf_code = h.pf_code
 order by
-  入院率 desc;
+  入院率 desc,
+  都道府県コード asc;
