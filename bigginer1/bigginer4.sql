@@ -16,25 +16,31 @@
 select
   detail.item_code as CODE,
   detail.item_name as NAME,
-  sum(detail.SUM_QTY) as SUM_QTY
+  sum(detail.D_SUM_QTY) as SUM_QTY
 from
   orders o
   inner join warehouse w on o.wh_code = w.wh_code
-  left outer join (
+  and w.wh_name = '浦和倉庫'
+  inner join (
     select
       d.order_no,
+      d.line_no,
       d.item_code,
       i.item_name,
-      sum(d.order_qty) as SUM_QTY
+      sum(d.order_qty) as D_SUM_QTY
     from
       orders_dtl d
       left outer join item i on d.item_code = i.item_code
     group by
       d.order_no,
-      i.item_name,
-      d.item_code
+      d.line_no,
+      d.item_code,
+      i.item_name
   ) as detail on detail.order_no = o.order_no
-where
+group by
+  CODE,
+  NAME
+having
   SUM_QTY >= 50
 order by
   SUM_QTY desc,
@@ -42,13 +48,15 @@ order by
 
 select
   d.order_no,
+  d.line_no,
   d.item_code,
   i.item_name,
-  sum(d.order_qty) as SUM_QTY
+  sum(d.order_qty) as D_SUM_QTY
 from
   orders_dtl d
   left outer join item i on d.item_code = i.item_code
 group by
   d.order_no,
-  i.item_name,
-  d.item_code
+  d.line_no,
+  d.item_code,
+  i.item_name
