@@ -45,7 +45,7 @@ select
 from
   abv
 where
-  abv.SEAT_T abv.SEAT_F = 2
+  abv.SEAT_T - abv.SEAT_F = 2
 order by
   LINE_ID desc,
   SEAT_F;
